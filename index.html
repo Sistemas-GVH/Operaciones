@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Transporte</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Formulario de Geomembranas</h1>
+        <form id="transporteForm">
+            <div class="form-group">
+                <label for="nombreConductor">Nombre y Apellido - Conductor:</label>
+                <input type="text" id="nombreConductor" required>
+            </div>
+            <div class="form-group">
+                <label for="fechaArribo">Fecha de Arribo:</label>
+                <input type="date" id="fechaArribo" required>
+            </div>
+            <div class="form-group">
+                <label for="facturaComercial">Factura Comercial:</label>
+                <input type="text" id="facturaComercial" required>
+            </div>
+            <div class="form-group">
+                <label for="cartaPorte">N° Carta Porte:</label>
+                <input type="text" id="cartaPorte" required>
+            </div>
+            <div class="form-group">
+                <label for="fotoCartaPorte">Foto Carta Porte:</label>
+                <input type="file" id="fotoCartaPorte" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="cantidadGeomembranas">Cantidad de Geomembranas:</label>
+                <input type="number" id="cantidadGeomembranas" required>
+            </div>
+            <div id="geomembranasContainer"></div>
+            <button type="button" onclick="generarPDF()">Generar PDF</button>
+            <button type="button" onclick="location.href='formulario_interno.html'">Formulario Siguiente</button>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

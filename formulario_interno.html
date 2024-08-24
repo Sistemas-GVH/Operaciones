@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Interno</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container" id="pdfContent">
+        <h1>Formulario Geomembranas</h1>
+        <form id="transporteInt">
+            <div id="geomembranasContainer"></div>
+            <h2>Datos de Transferencia de Carga</h2>
+            <div class="form-group">
+                <label for="fechaTransferencia">Fecha de Transferencia de Carga:</label>
+                <input type="date" id="fechaTransferencia" required>
+            </div>
+            <div class="form-group">
+                <label for="codigoServicio">Código de Servicio:</label>
+                <input type="text" id="codigoServicio" required>
+            </div>
+            <div class="form-group">
+                <label>Plataforma Control Doc:</label>
+                <label><input type="checkbox" name="plataformaControl" value="Exactian"> Exactian</label>
+                <label><input type="checkbox" name="plataformaControl" value="Minexus"> Minexus</label>
+                <label><input type="checkbox" name="plataformaControl" value="Sicop"> Sicop</label>
+                <label><input type="checkbox" name="plataformaControl" value="Otros"> Otros</label>
+            </div>
+            <div class="form-group">
+                <label for="nombreConductorGVH">Nombre y Apellido Conductor GVH:</label>
+                <input type="text" id="nombreConductorGVH" required>
+                <label><input type="checkbox" name="estadoConductor" value="Verde"> Verde</label>
+                <label><input type="checkbox" name="estadoConductor" value="Amarillo"> Amarillo</label>
+                <label><input type="checkbox" name="estadoConductor" value="Rojo"> Rojo</label>
+            </div>
+            <div class="form-group">
+                <label for="patenteTractor">Patente Tractor:</label>
+                <input type="text" id="patenteTractor" required>
+                <label><input type="checkbox" name="estadoTractor" value="Verde"> Verde</label>
+                <label><input type="checkbox" name="estadoTractor" value="Amarillo"> Amarillo</label>
+                <label><input type="checkbox" name="estadoTractor" value="Rojo"> Rojo</label>
+            </div>
+            <div class="form-group">
+                <label for="patenteSemi">Patente Semi:</label>
+                <input type="text" id="patenteSemi" required>
+                <label><input type="checkbox" name="estadoSemi" value="Verde"> Verde</label>
+                <label><input type="checkbox" name="estadoSemi" value="Amarillo"> Amarillo</label>
+                <label><input type="checkbox" name="estadoSemi" value="Rojo"> Rojo</label>
+            </div>            
+            <div class="form-group">
+                <label for="fotoCargaTransito">Foto de Carga en Tránsito:</label>
+                <input type="file" id="fotoCargaTransito" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="fechaEntregaCliente">Fecha de Entrega a Cliente:</label>
+                <input type="date" id="fechaEntregaCliente" required>
+            </div>
+            <button type="button" onclick="generarPDFInterno()">Generar PDF</button>
+            <button type="button" onclick="location.href='index.html'">Formulario Principal</button>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
