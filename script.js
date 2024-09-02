@@ -36,7 +36,7 @@ document.getElementById('cantidadGeomembranas').addEventListener('input', functi
                 <label for="observaciones${i}">Observaciones:</label>
                 <input type="text" id="observaciones${i}">
                 <label for="fotoGeomembrana${i}">Foto:</label>
-                <input type="file" id="fotoGeomembrana${i}" accept="image/*">
+                <input type="file" id="fotoGeomembrana${i}" accept="image/*" multiple>
             </div>
         `;
     }
@@ -52,7 +52,6 @@ async function generarPDF() {
     const stateWidth = 30; // Ancho para los textos "Bien" y "Mal"
     const spacing = 60; // Espaciado horizontal entre columnas
 
-    // Función para agregar texto y manejar salto de página si es necesario
     function addTextToPDF(text, fontSize = 10) {
         doc.setFontSize(fontSize);
         if (yPosition + lineHeight > pageHeight) {
@@ -63,7 +62,6 @@ async function generarPDF() {
         yPosition += lineHeight;
     }
 
-    // Función para agregar imágenes y manejar salto de página si es necesario
     function addImageToPDF(imageFile) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -87,20 +85,17 @@ async function generarPDF() {
         });
     }
 
-    // Función para agregar el estado de una geomembrana en formato horizontal
     function addStateRowToPDF(estadoGeneral, enrollado, esquinas, fajas) {
         const startX = 20;
         const yOffset = 0;
 
         doc.setFontSize(10);
 
-        // Agregar encabezados
         doc.text(startX, yPosition, 'Estado General');
         doc.text(startX + spacing, yPosition, 'Enrollado');
         doc.text(startX + 2 * spacing, yPosition, 'Esquinas');
         doc.text(startX + 3 * spacing, yPosition, 'Fajas');
 
-        // Agregar estados
         yPosition += 10; // Espacio entre encabezado y los valores
 
         doc.text(startX, yPosition, estadoGeneral === 'Bien' ? 'Bien' : '');
@@ -123,14 +118,12 @@ async function generarPDF() {
     const cartaPorte = document.getElementById('cartaPorte').value;
     const cantidadGeomembranas = document.getElementById('cantidadGeomembranas').value;
 
-    // Añadir los datos al PDF
     addTextToPDF(`Nombre y Apellido - Conductor: ${nombreConductor}`);
     addTextToPDF(`Fecha de Arribo: ${fechaArribo}`);
     addTextToPDF(`Factura Comercial: ${facturaComercial}`);
     addTextToPDF(`N° Carta Porte: ${cartaPorte}`);
     addTextToPDF(`Cantidad de Geomembranas: ${cantidadGeomembranas}`);
 
-    // Añadir imagen de la carta porte
     const fotoCartaPorte = document.getElementById('fotoCartaPorte').files[0];
     if (fotoCartaPorte) {
         await addImageToPDF(fotoCartaPorte);
@@ -149,15 +142,16 @@ async function generarPDF() {
         addStateRowToPDF(estadoGeneral, enrollado, esquinas, fajas);
         addTextToPDF(`Observaciones: ${observaciones}`);
 
-        // Añadir imagen de la geomembrana
-        const fotoGeomembrana = document.getElementById(`fotoGeomembrana${i}`).files[0];
-        if (fotoGeomembrana) {
-            await addImageToPDF(fotoGeomembrana);
+        // Añadir imágenes de la geomembrana
+        const fotosGeomembrana = document.getElementById(`fotoGeomembrana${i}`).files;
+        for (let j = 0; j < fotosGeomembrana.length; j++) {
+            await addImageToPDF(fotosGeomembrana[j]);
         }
     }
 
     doc.save('formulario_transporte.pdf');
 }
+
 ///////////////////////////////////////////////////////////////////////////////////
 document.addEventListener('DOMContentLoaded', function () {
     const generarPDFButton = document.querySelector('button[onclick="generarPDFInterno()"]');
